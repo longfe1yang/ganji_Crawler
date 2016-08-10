@@ -34,7 +34,7 @@ def url_rst():
 
 
 def main():
-    # get_start()
+    get_start()
     pool = Pool()
     pool.map(get_all_links_from, url_rst())
     pool.map(get_item_info, info_rst())
