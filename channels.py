@@ -4,7 +4,10 @@ import models
 import time
 
 
-# 最后权衡了一下还是把验重合成进了函数里面，这样import一个函数就可以了，
+def page_url_exist(page_url):
+    return page_url in [i['page_url'] for i in models.first_grade.find()]
+
+
 # 最大化利用一致性
 def get_index_url(url, host):
     res = requests.get(url)
@@ -12,13 +15,11 @@ def get_index_url(url, host):
     res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'lxml')
     titles = soup.select('#wrapper > div.content > div > div > dl.fenlei > dt > a')
-    totals = [i['page_url'] for i in models.first_grade.find()]
-    print(totals)
     for i in titles:
         title = i.get_text()
         url = i.get('href')
         page_url = host + url
-        if page_url not in totals:
+        if not page_url_exist(page_url):
             data = {
                 'title': title,
                 'page_url': page_url
