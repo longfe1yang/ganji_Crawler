@@ -69,7 +69,7 @@ def get_item_info(url):
                 'place': [area.text.strip() for area in place if area.text.strip() != "-"],
                 'state': formatted(state[0].get_text() if len(state) != 0 else "")
             }
-            # models.third_grade.save(data)
+            models.third_grade.save(data)
             print(data)
         else:
             pass
