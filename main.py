@@ -10,7 +10,7 @@ def get_all_links_from(channel):
         get_links_from(channel, i)
 
 
-# 这个get_index_url有去重功能，也就是说
+# 这个get_index_url写了去重功能，也就是说
 # 这个get_start()运行无论多少次，都不会加入重复信息
 def get_start():
     start_url = 'http://bj.ganji.com/wu/'
@@ -35,7 +35,7 @@ def url_rst():
 
 def main():
     get_start()
-    pool = Pool()
+    pool = Pool(processes=4)
     pool.map(get_all_links_from, url_rst())
     pool.map(get_item_info, info_rst())
     pool.close()

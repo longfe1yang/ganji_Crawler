@@ -56,7 +56,7 @@ def get_item_info(url):
         soup = BeautifulSoup(wb_data.text, 'lxml')
         if info_page_exist(soup):
             tm = soup.select('.pr-5')
-            typ = soup.select('div.leftBox > div:nth-of-type(3) > div > ul > li:nth-of-type(1) > span > a')
+            cate = soup.select('div.h-crumbs > div > a')
             price = soup.select('.f22.fc-orange.f-type')
             place = soup.select('ul.det-infor > li:nth-of-type(3) > a')
             state = soup.select('div.second-dt-bewrite > ul > li')
@@ -64,7 +64,8 @@ def get_item_info(url):
                 'url': url,
                 'title': soup.title.text.strip(),
                 'time': tm[0].text.strip().split(' ')[0] if len(tm) > 0 else "",
-                'type': typ[0].text if len(typ) > 0 else '',
+                'cate': [cate.text.strip() for cate in cate],
+                # 'cate': cate[0].get_text(),
                 'price': price[0].text.strip() if len(price) > 0 else 0,
                 'place': [area.text.strip() for area in place if area.text.strip() != "-"],
                 'state': formatted(state[0].get_text() if len(state) != 0 else "")
@@ -78,4 +79,4 @@ def get_item_info(url):
 
 
 if __name__ == '__main__':
-    get_item_info('http://bj.ganji.com/shuma/1868232000x.htm')
+    get_item_info('http://bj.ganji.com/ruanjiantushu/2109678197x.htm')

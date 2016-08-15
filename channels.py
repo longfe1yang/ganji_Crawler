@@ -34,3 +34,4 @@ if __name__ == '__main__':
     start_url = 'http://bj.ganji.com/wu/'
     host = 'http://bj.ganji.com'
     get_index_url(start_url)
+
